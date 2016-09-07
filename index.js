@@ -135,6 +135,10 @@ module.exports = function(options) {
   function renderAttributes(content, url) {
     var attributes = [];
 
+    if( typeof options.postprocessFilePath == 'function' ){
+      url = options.postprocessFilePath(url);
+    }
+
     if( getBlockType(content) === 'js' ){
       attributes = content.match(/((?!src|type\b)\b\w+)=("[^<>"]*"|'[^<>']*'|\w+)/gi) || [];
       attributes.push("src='" + url + "'");
