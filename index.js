@@ -55,6 +55,10 @@ module.exports = function(options) {
       .replace(endCondReg, '')
       .replace(/<!--(?:(?:.|\r|\n)*?)-->/gim, '')
       .replace(reg, function (a,b) {
+        if( typeof options.preprocessFilePath == 'function' ){
+          b = options.preprocessFilePath(b);
+        }
+        
         var filePath = path.resolve(path.join(alternatePath || options.path || mainPath, b));
 
         if (options.assetsDir)
